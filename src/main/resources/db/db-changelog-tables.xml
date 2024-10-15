@@ -1,0 +1,49 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="InitTables" author="gabriel.carvalho">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user"/>
+            </not>
+            <not>
+                <tableExists tableName="user_roles"/>
+            </not>
+            <not>
+                <tableExists tableName="role"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user">
+            <column name="id" type="java.sql.Types.INTEGER">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="user_pk" unique="true"/>
+            </column>
+            <column name="username" type="java.sql.Types.VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="java.sql.Types.VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="role">
+            <column name="id" type="java.sql.Types.INTEGER">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="role_pk" unique="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="user_roles">
+            <column name="user_id" type="java.sql.Types.INTEGER">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="user_roles_pk"/>
+            </column>
+            <column name="role_id" type="java.sql.Types.INTEGER">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="user_roles_pk"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
